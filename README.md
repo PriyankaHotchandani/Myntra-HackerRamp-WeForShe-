@@ -161,10 +161,7 @@ Link to the Demo Video:
 ---
 
 <br>
-<h3 align="center"><b>Developed by Team 
-echo '<pre>'; 
-echo htmlspecialchars(<Violet Colons/>);
-echp '</pre>';</b></h3>
+<h3 align="center"><b>Developed by Team Violet Colons</b></h3>
 
 
 [![](https://img.shields.io/badge/LinkedIn-Priyanka_Hotchandani-blue?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/priyanka-hotchandani/)
