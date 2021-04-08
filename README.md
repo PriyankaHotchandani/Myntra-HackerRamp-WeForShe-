@@ -156,7 +156,7 @@ https://create.arduino.cc/projecthub/reanimationxp/how-to-multithread-an-arduino
 
 <br>
 Link to the Demo Video:
-[Eye of God](https://youtu.be/heCKjZSQmQY)
+[](https://)
 <br>
 ---
 
