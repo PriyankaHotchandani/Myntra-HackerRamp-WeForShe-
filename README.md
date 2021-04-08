@@ -1,4 +1,4 @@
-<h1 align="center">Eye of God</h1>
+<h1 align="center">Myntra HackerRamp: WeForShe</h1>
 
 <div align="center">
 <img src="Readme_Assets\Eye_of_god.png"> 
@@ -163,10 +163,9 @@ Link to the Demo Video:
 <br>
 <h3 align="center"><b>Developed by Team Hack Inversion</b></h3>
 
-[![](https://img.shields.io/badge/LinkedIn-Anish_Pawar-blue?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/anish-pawar-5300a9192/)
-
-[![](https://img.shields.io/badge/LinkedIn-Gayatri_Patil-blue?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/gayatri-patil-48316b203/)
-
-[![](https://img.shields.io/badge/LinkedIn-Jatin_Nainani-blue?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/jatin-nainani-a6b2331b3/)
 
 [![](https://img.shields.io/badge/LinkedIn-Priyanka_Hotchandani-blue?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/priyanka-hotchandani/)
+
+[![](https://img.shields.io/badge/LinkedIn-Prachi_Randeria-blue?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/prachi-randeria/)
+
+[![](https://img.shields.io/badge/LinkedIn-Gayatri_Patil-blue?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/gayatri-patil-48316b203/)
