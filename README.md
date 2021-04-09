@@ -1,21 +1,21 @@
-<h1 align="center">Myntra HackerRamp: WeForShe</h1>
+<h1 align="center">V-SHOP</h1>
 
 <div align="center">
-<img src="Readme_Assets\Eye_of_god.png"> 
+<img align="center" src="Readme_Assets\V-Shop Logo.png"> 
 </div>
 
 <br>
 
-[![](https://img.shields.io/badge/Made_with-Flutter-green?style=for-the-badge&logo=flutter)](https://flutter.dev/)
-[![](https://img.shields.io/badge/Made_with-Google%20Maps%20Platform-green?style=for-the-badge&logo=google-maps)](https://developers.google.com/maps/documentation)
-[![](https://img.shields.io/badge/Made_with-dart-green?style=for-the-badge&logo=dart)](https://dart.dev/)
+[![](https://img.shields.io/badge/Made_with-react-green?style=for-the-badge&logo=react)](https://reactnative.dev/)
+[![](https://img.shields.io/badge/Made_with-NodeJs-green?style=for-the-badge&logo=npm)](https://nodejs.org/en/)
+[![](https://img.shields.io/badge/Made_with-HTML-green?style=for-the-badge&logo=HTML)](https://html.com/)
+[![](https://img.shields.io/badge/Made_with-CSS-green?style=for-the-badge&logo=CSS)](https://www.w3.org/Style/CSS/Overview.en.html)
+[![](https://img.shields.io/badge/Made_with-JavaScript-green?style=for-the-badge&logo=javaScript)](https://www.javascript.com/)
 [![](https://img.shields.io/badge/Made_with-Opencv-green?style=for-the-badge&logo=opencv)](https://opencv.org)
 [![](https://img.shields.io/badge/Made_with-Python-green?style=for-the-badge&logo=python)](https://www.python.org)
+[![](https://img.shields.io/badge/Made_with-Tkinter-green?style=for-the-badge&logo=Tkinter)](https://docs.python.org/3/library/tk.html)
 [![](https://img.shields.io/badge/Made_with-Tensorflow-green?style=for-the-badge&logo=tensorflow)](https://www.tensorflow.org)
-[![](https://img.shields.io/badge/Made_with-Flask-green?style=for-the-badge&logo=flask)](http://flask.palletsprojects.com)
-[![](https://img.shields.io/badge/Made_with-Google_Cloud-green?style=for-the-badge&logo=google-cloud)](https://cloud.google.com)
-[![](https://img.shields.io/badge/Made_with-Keras-green?style=for-the-badge&logo=keras)](https://keras.io)
-[![](https://img.shields.io/badge/Made_with-Arduino-green?style=for-the-badge&logo=arduino)](https://www.arduino.cc)
+
 </br>
 
 </div>
@@ -30,44 +30,48 @@
   </p>
 
 
-<p>To bring the best of both the online and offline shopping worlds together, we propose to build a communicative web application which will facilitate the users to shop together virtually being in the comfort of their homes. They will be able to interact with their friends, get opinions on their shopping choices, and enjoy each other’s company whilst having a fun-filled time shopping online.   
+<p>Combining the best of both online and offline shopping worlds together, V-Shop is a communicative web application which will facilitate the users to shop together virtually being in the comfort of their homes. They will be able to interact with their friends, get opinions on their shopping choices, and enjoy each other’s company whilst having a fun-filled time shopping online.   
 </p>
 <br>
 
+---
+
 <h2><strong>Features</h2></strong>
 
-1 - Adding friends to room​
+* Adding friends to room​
 
-2 - Creating temporary group calls for shopping​
+* Creating temporary group calls for shopping​
 
-3 - Screen sharing while shopping online​
+* Screen sharing while shopping online​
 
-4- Virtual Dressing Room​
+* Virtual Dressing Room​
 
-5- Interactive Chat box during calls
+* Interactive Chat box during calls
 <br>
 
 ---
 
-<h2><strong>App Workflow</h2></strong>
+<h2><strong>Workflow</h2></strong><br>
 
-//Jamboard
+<h2>Website</h2>
+<img src="Readme_Assets\jam2.png"> <br><br>
+<h2>Virtual Dressing Room</h2>
+<img src="Readme_Assets\jam1.png"> 
+<br>
 <br>
 
 ---
 
-
----
-<h2><strong>App Screenshots</strong>
-
-* Front end
+<br>
+<h2><strong>Screenshots</strong></h2>
+<br>
 <div align="center">
-<img src="Readme_Assets\App_Screenshot.png"> 
+<img src="Readme_Assets\V1.png"> 
+<img src="Readme_Assets\v2.png"> 
+<img src="Readme_Assets\v3.png"> 
+<img src="Readme_Assets\v4.png"> 
 </div>
 
-* Backend
-<div align="center">
-<img src="Readme_Assets\Backend.png"> 
 </div>
 
 
@@ -77,7 +81,7 @@
 
 
 <br>
-<h3 align="center"><b>Developed by Team Violet Colons</b></h3>
+<h2 align="center"><b>Developed by Team &lt&#47Violet Colons&gt</b></h2><br>
 
 
 [![](https://img.shields.io/badge/LinkedIn-Priyanka_Hotchandani-blue?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/priyanka-hotchandani/)
