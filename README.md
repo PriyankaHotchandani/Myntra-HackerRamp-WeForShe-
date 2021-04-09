@@ -33,7 +33,7 @@
 <p>To bring the best of both the online and offline shopping worlds together, we propose to build a communicative web application which will facilitate the users to shop together virtually being in the comfort of their homes. They will be able to interact with their friends, get opinions on their shopping choices, and enjoy each other’s company whilst having a fun-filled time shopping online.   
 </p>
 <br>
----
+
 <h2><strong>Features</h2></strong>
 
 1 - Adding friends to room​
