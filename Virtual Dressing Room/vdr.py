@@ -48,6 +48,7 @@ class App:
 
 class VideoCapture:
     def __init__(self):
+        # webcam input
         self.cap = cv2.VideoCapture(0)
 
         if not self.cap.isOpened():
