@@ -1,7 +1,7 @@
 <h1 align="center">V-SHOP</h1>
 
 <div align="center">
-<img align="center" src="Readme_Assets\V-Shop Logo.png"> 
+<img align="center" src="Readme_Assets\V-Shop Logo.png" height="250px"> 
 </div>
 
 <br>
@@ -51,7 +51,7 @@
 
 ---
 
-<h2><strong>Workflow</h2></strong><br>
+<h2><strong>Workflow</h2></strong>
 
 <h2>Website</h2>
 <img src="Readme_Assets\jam2.png"> <br><br>
@@ -66,10 +66,10 @@
 <h2><strong>Screenshots</strong></h2>
 <br>
 <div align="center">
-<img src="Readme_Assets\V1.png"> 
-<img src="Readme_Assets\v2.png"> 
-<img src="Readme_Assets\v3.png"> 
-<img src="Readme_Assets\v4.png"> 
+<img src="Readme_Assets\V1.PNG"> 
+<img src="Readme_Assets\v2.PNG"> 
+<img src="Readme_Assets\v3.PNG"> 
+<img src="Readme_Assets\v4.PNG"> 
 </div>
 
 </div>
