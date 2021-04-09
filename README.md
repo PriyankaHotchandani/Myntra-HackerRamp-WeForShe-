@@ -32,6 +32,9 @@
 
 <p>Combining the best of both online and offline shopping worlds together, V-Shop is a communicative web application which will facilitate the users to shop together virtually being in the comfort of their homes. They will be able to interact with their friends, get opinions on their shopping choices, and enjoy each other’s company whilst having a fun-filled time shopping online.   
 </p>
+<p><strong>Link to Demo Videos and Body Segmentation Model:</strong>
+https://drive.google.com/drive/folders/1T-GQfl3ogf-KyzS4cY9UPIjahOKtnJ9E?usp=sharing
+</p>
 <br>
 
 ---
