@@ -74,11 +74,7 @@
 
 ---
 
-<br>
-Link to the Demo Video:
-[](https://)
-<br>
----
+
 
 <br>
 <h3 align="center"><b>Developed by Team Violet Colons</b></h3>
