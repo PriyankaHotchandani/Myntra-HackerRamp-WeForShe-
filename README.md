@@ -61,11 +61,9 @@ https://drive.google.com/drive/folders/1T-GQfl3ogf-KyzS4cY9UPIjahOKtnJ9E?usp=sha
 <h2>Virtual Dressing Room</h2>
 <img src="Readme_Assets\jam1.png"> 
 <br>
-<br>
 
 ---
 
-<br>
 <h2><strong>Screenshots</strong></h2>
 <br>
 <div align="center">
