@@ -57,7 +57,7 @@ https://drive.google.com/drive/folders/1T-GQfl3ogf-KyzS4cY9UPIjahOKtnJ9E?usp=sha
 <h2><strong>Workflow</h2></strong>
 
 <h2>Website</h2>
-<img src="Readme_Assets\jam2.png"> <br><br>
+<img src="Readme_Assets\jam2.png"> <br>
 <h2>Virtual Dressing Room</h2>
 <img src="Readme_Assets\jam1.png"> 
 <br>
