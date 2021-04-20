@@ -33,7 +33,7 @@
     "xss": "^1.0.8"
   },
   "scripts": {
-    "start": "yarn dev",
+    "start": "node app.js",
     "dev": "concurrently -n 'server,client' -c 'red,green'  \"nodemon app.js\" \"NODE_ENV=dev PORT=8000 react-scripts start\"",
     "server": "NODE_ENV=production nodemon app.js",
     "build": "react-scripts build",
