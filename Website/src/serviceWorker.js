@@ -9,7 +9,7 @@ const isLocalhost = Boolean(
 );
 
 export function register(config) {
-	if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
+	if (process.env.PROD && 'serviceWorker' in navigator) {
 		
 		const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
 		if (publicUrl.origin !== window.location.origin) {
