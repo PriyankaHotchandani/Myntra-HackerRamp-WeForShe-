@@ -24,6 +24,7 @@ import "./Video.css"
 const server_url = process.env.NODE_ENV === 'production' ? ' ' : "http://localhost:4001"
 
 var connections = {}
+var urlarr = []
 const peerConnectionConfig = {
 	'iceServers': [
 		// { 'urls': 'stun:stun.services.mozilla.com' },
@@ -33,14 +34,20 @@ const peerConnectionConfig = {
 var socket = null
 var socketId = null
 var elms = 0
+var urlarr = []
 
-class Arr {
-	constructor () {
-		this.state = {
-			arr: [1,2,3]
-		}
+const changename = (x) =>{
+	console.log(x)
+	urlarr.push(x)
+	console.log(urlarr)
 }
+
+const arr = () => {
+	console.log('inside arr')
+	console.log(urlarr)
+	return urlarr
 }
+
 
 class Video extends Component {
 	constructor(props) {
@@ -56,16 +63,20 @@ class Video extends Component {
 			video: false,
 			audio: false,
 			screen: false,
-			showModal: false,
+			showModal1: false,
+			showwish: false,
 			screenAvailable: false,
 			messages: [],
+			wishes: [],
 			message: "",
+			wishlist:"",
 			newmessages: 0,
+			newwishes: 0,
 			askForUsername: true,
-			username: faker.internet.userName(),
+			username: '',
+			
 		}
 		connections = {}
-
 		this.getPermissions()
 	}
 
@@ -257,6 +268,28 @@ class Video extends Component {
 		}
 	}
 
+	gotWishesFromServer = (fromId, wishlist) => {
+		var signal = JSON.parse(wishlist)
+
+		if (fromId !== socketId) {
+			if (signal.sdp) {
+				connections[fromId].setRemoteDescription(new RTCSessionDescription(signal.sdp)).then(() => {
+					if (signal.sdp.type === 'offer') {
+						connections[fromId].createAnswer().then((description) => {
+							connections[fromId].setLocalDescription(description).then(() => {
+								socket.emit('signal', fromId, JSON.stringify({ 'sdp': connections[fromId].localDescription }))
+							}).catch(e => console.log(e))
+						}).catch(e => console.log(e))
+					}
+				}).catch(e => console.log(e))
+			}
+
+			if (signal.ice) {
+				connections[fromId].addIceCandidate(new RTCIceCandidate(signal.ice)).catch(e => console.log(e))
+			}
+		}
+	}
+
 	changeCssVideos = (main) => {
 		let widthMain = main.offsetWidth
 		let minWidth = "30%"
@@ -295,13 +328,13 @@ class Video extends Component {
 		socket = io.connect(server_url, { secure: true })
 
 		socket.on('signal', this.gotMessageFromServer)
-
+		socket.on('signal', this.gotWishesFromServer)
 		socket.on('connect', () => {
 			socket.emit('join-call', window.location.href)
 			socketId = socket.id
 
 			socket.on('chat-message', this.addMessage)
-
+			socket.on('wish', this.addWish)
 			socket.on('user-left', (id) => {
 				let video = document.querySelector(`[data-socket="${id}"]`)
 				if (video !== null) {
@@ -409,9 +442,14 @@ class Video extends Component {
 		window.location.href = "/"
 	}
 
-	openChat = () => this.setState({ showModal: true, newmessages: 0 })
-	closeChat = () => this.setState({ showModal: false })
+	openChat = () => this.setState({ showModal1: true, newmessages: 0 })
+	closeChat = () => this.setState({ showModal1: false })
+
+	openWish = () => this.setState({ showwish: true, newwishes: 0 })
+	closeWish = () => this.setState({ showwish: false })
+
 	handleMessage = (e) => this.setState({ message: e.target.value })
+	handleURL = (e) => this.setState({ wishlist: e.target.value })
 
 	addMessage = (data, sender, socketIdSender) => {
 		this.setState(prevState => ({
@@ -422,11 +460,25 @@ class Video extends Component {
 		}
 	}
 
-	handleUsername = (e) => this.setState({ username: e.target.value })
+	addWish = (data, sender, socketIdSender) => {
+		this.setState(prevState => ({
+			wishes: [...prevState.wishes, { "sender": sender, "data": data }],
+		}))
+		if (socketIdSender !== socketId) {
+			this.setState({ newwishes: this.state.newwishes + 1 })
+		}
+	}
+
+	handleUsername = (e) => this.setState({ username: e.target.value});
 
 	sendMessage = () => {
 		socket.emit('chat-message', this.state.message, this.state.username)
 		this.setState({ message: "", sender: this.state.username })
+	}
+
+	sendWish= () => {
+		socket.emit('wishes', this.state.wishlist, this.state.username)
+		this.setState({ wishlist: "", sender: this.state.username })
 	}
 
 	copyUrl = () => {
@@ -453,7 +505,7 @@ class Video extends Component {
 		})
 	}
 
-	connect = () => this.setState({ askForUsername: false }, () => this.getMedia())
+	connect = () => {this.setState({ askForUsername: false}, () => this.getMedia()); changename(this.state.username);}
 
 	isChrome = function () {
 		let userAgent = (navigator && (navigator.userAgent || '')).toLowerCase()
@@ -516,13 +568,15 @@ class Video extends Component {
 								</IconButton>
 							</Badge>
 							
-							<IconButton style={{ color: "#424242" }} onClick={this.join}>
+							<Badge badgeContent={this.state.newwishes} max={999} color="secondary" onClick={this.openWish}>
+								<IconButton style={{ color: "#424242" }} onClick={this.openWish}>
 								<LocalMallIcon />
 							</IconButton>
+							</Badge>
 
 						</div>
 
-						<Modal show={this.state.showModal} onHide={this.closeChat} style={{ zIndex: "999999" }}>
+						<Modal show={this.state.showModal1} onHide={this.closeChat} style={{ zIndex: "999999" }}>
 							<Modal.Header closeButton>
 								<Modal.Title>Chat Room</Modal.Title>
 							</Modal.Header>
@@ -536,6 +590,28 @@ class Video extends Component {
 							<Modal.Footer className="div-send-msg">
 								<Input placeholder="Message" value={this.state.message} onChange={e => this.handleMessage(e)} />
 								<Button variant="contained" color="primary" onClick={this.sendMessage} style={{ background:"pink", color:"black"}}>Send</Button>
+							</Modal.Footer>
+						</Modal>
+
+
+						<Modal show={this.state.showwish} onHide={this.closeWish} style={{ zIndex: "999999" }}>
+							<Modal.Header closeButton>
+								<Modal.Title>Wishlist</Modal.Title>
+							</Modal.Header>
+							<Modal.Body style={{ overflow: "auto", overflowY: "auto", height: "400px", textAlign: "left" }} >
+							{this.state.wishes.length > 0 ? this.state.wishes.map((item, index) => (
+										<div key={index} style={{textAlign: "left"}}>
+											<p style={{ wordBreak: "break-all" }}><b>{item.sender}</b>: {item.data}</p>
+										</div>									
+								// 	<div key={index} className="list-group " style={{marginTop: '30px', alignItems: 'center'}}>
+								// 	<a href="#" className="list-group-item list-group-item-action list-group-item-danger" >{item.data}<img src="https://www.thenewsminute.com/sites/default/files/styles/slideshow_image_size/public/Myntra_Logo_1200x800.jpg?itok=QuRN2mnR"style={{maxWidth: '50px', maxHeight: '50px', marginLeft: '60%'}} /></a>
+								//   </div>
+								)) : <p>No Items yet</p>}
+								
+							</Modal.Body>
+							<Modal.Footer className="div-send-msg">
+								<Input placeholder="URL" value={this.state.wishlist} onChange={e => this.handleURL(e)} />
+								<Button variant="contained" color="primary" onClick={this.sendWish} style={{ background:"pink", color:"black"}}>Add</Button>
 							</Modal.Footer>
 						</Modal>
 
@@ -558,6 +634,8 @@ class Video extends Component {
 			</div>
 		)
 	}
-}
 
-export default Video
+}
+export const newarr = urlarr;
+// module.exports = urlarr
+export {Video, arr}

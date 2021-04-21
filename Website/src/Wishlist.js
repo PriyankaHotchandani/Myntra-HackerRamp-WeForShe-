@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import "./Wishlist.css"
-import Arr from './Video'
+import "./bootstrap.min.css"
+import {Video, arr} from './Video.js'
+import {newarr} from './Video.js'
 
-console.log(Arr.arr);
+
+console.log(newarr);
 
 class Wishlist extends Component {
     constructor (props) {
@@ -13,12 +16,13 @@ class Wishlist extends Component {
   }
   render() {
     return (
-        <div className="container2">            
-            <div>
-                <h1 style={{ fontSize: "45px", margin:0, padding:0 }}>V-SHOP</h1>
-                <p style={{ margin:0, }}><i>..together we shop, in a Virtual-Shop!</i> </p>
-            </div>
-        </div>
+          
+                <div className="container">
+                  <h3 style={{textAlign: 'center', marginTop: '50px'}}>Your Wishlist</h3>
+                  <div className="list-group " style={{marginTop: '30px', alignItems: 'center', width: '300px', marginLeft: '410px'}}>
+                    <a href="#" className="list-group-item list-group-item-action list-group-item-danger" >Item 1<img src="https://www.thenewsminute.com/sites/default/files/styles/slideshow_image_size/public/Myntra_Logo_1200x800.jpg?itok=QuRN2mnR"style={{maxWidth: '50px', maxHeight: '50px', marginLeft: '60%'}} /></a>
+                  </div>
+                </div>
     )
 }
 }

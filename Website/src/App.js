@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Video from './Video'
+import {Video} from './Video.js'
 import Home from './Home'
 import Wishlist from './Wishlist'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
