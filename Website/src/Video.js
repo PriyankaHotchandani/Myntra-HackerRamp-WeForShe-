@@ -10,6 +10,7 @@ import MicOffIcon from '@material-ui/icons/MicOff'
 import ScreenShareIcon from '@material-ui/icons/ScreenShare'
 import StopScreenShareIcon from '@material-ui/icons/StopScreenShare'
 import CallEndIcon from '@material-ui/icons/CallEnd'
+import LocalMallIcon from '@material-ui/icons/LocalMall'
 import ChatIcon from '@material-ui/icons/Chat'
 
 import { message } from 'antd'
@@ -33,6 +34,14 @@ var socket = null
 var socketId = null
 var elms = 0
 
+class Arr {
+	constructor () {
+		this.state = {
+			arr: [1,2,3]
+		}
+}
+}
+
 class Video extends Component {
 	constructor(props) {
 		super(props)
@@ -43,6 +52,7 @@ class Video extends Component {
 		this.audioAvailable = false
 
 		this.state = {
+			url: '',
 			video: false,
 			audio: false,
 			screen: false,
@@ -57,6 +67,18 @@ class Video extends Component {
 		connections = {}
 
 		this.getPermissions()
+	}
+
+	
+
+	join = () => {
+		if (this.state.url !== "") {
+			var url = this.state.url.split("/")
+			window.location.href = `/${url}`
+		} else {
+			var url = 'Wishlist'
+			window.location.href = `/${url}`
+		}
 	}
 
 	getPermissions = async () => {
@@ -493,6 +515,11 @@ class Video extends Component {
 									<ChatIcon />
 								</IconButton>
 							</Badge>
+							
+							<IconButton style={{ color: "#424242" }} onClick={this.join}>
+								<LocalMallIcon />
+							</IconButton>
+
 						</div>
 
 						<Modal show={this.state.showModal} onHide={this.closeChat} style={{ zIndex: "999999" }}>
