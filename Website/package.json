@@ -37,6 +37,7 @@
     "npm":"6.14.11"
   },
   "scripts": {
+    "start": "node app.js",
     "dev": "concurrently -n 'server,client' -c 'red,green'  \"nodemon app.js\" \"NODE_ENV=dev PORT=8000 react-scripts start\"",
     "server": "NODE_ENV=production nodemon app.js",
     "build": "react-scripts build",
