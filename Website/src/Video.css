@@ -13,6 +13,10 @@ body {
     justify-content: center;
 }
 
+.modal-dialog {
+    max-width: 1000px !important;
+    margin: 1.75rem auto;
+}
 .container {
     height: 100vh;
     width: 100vw;

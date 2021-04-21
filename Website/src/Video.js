@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import io from 'socket.io-client'
-import faker from "faker"
 
 import {IconButton, Badge, Input, Button} from '@material-ui/core'
 import VideocamIcon from '@material-ui/icons/Videocam'
@@ -161,6 +160,7 @@ class Video extends Component {
 				connections[id].setLocalDescription(description)
 					.then(() => {
 						socket.emit('signal', id, JSON.stringify({ 'sdp': connections[id].localDescription }))
+						//socket.emit('signal1', id, JSON.stringify({ 'sdp': connections[id].localDescription }))
 					})
 					.catch(e => console.log(e))
 			})
@@ -187,6 +187,7 @@ class Video extends Component {
 						connections[id].setLocalDescription(description)
 							.then(() => {
 								socket.emit('signal', id, JSON.stringify({ 'sdp': connections[id].localDescription }))
+								//socket.emit('signal1', id, JSON.stringify({ 'sdp': connections[id].localDescription }))
 							})
 							.catch(e => console.log(e))
 					})
@@ -223,6 +224,7 @@ class Video extends Component {
 				connections[id].setLocalDescription(description)
 					.then(() => {
 						socket.emit('signal', id, JSON.stringify({ 'sdp': connections[id].localDescription }))
+						//socket.emit('signal1', id, JSON.stringify({ 'sdp': connections[id].localDescription }))
 					})
 					.catch(e => console.log(e))
 			})
@@ -246,9 +248,14 @@ class Video extends Component {
 		})
 	}
 
+	callboth = (fromId, wishlist) => {
+		this.gotMessageFromServer(fromId, wishlist);
+		this.gotWishesFromServer(fromId, wishlist);
+	}
+
 	gotMessageFromServer = (fromId, message) => {
 		var signal = JSON.parse(message)
-
+		console.log('inside got message')
 		if (fromId !== socketId) {
 			if (signal.sdp) {
 				connections[fromId].setRemoteDescription(new RTCSessionDescription(signal.sdp)).then(() => {
@@ -256,6 +263,7 @@ class Video extends Component {
 						connections[fromId].createAnswer().then((description) => {
 							connections[fromId].setLocalDescription(description).then(() => {
 								socket.emit('signal', fromId, JSON.stringify({ 'sdp': connections[fromId].localDescription }))
+
 							}).catch(e => console.log(e))
 						}).catch(e => console.log(e))
 					}
@@ -270,7 +278,7 @@ class Video extends Component {
 
 	gotWishesFromServer = (fromId, wishlist) => {
 		var signal = JSON.parse(wishlist)
-
+		console.log('inside got wishes')
 		if (fromId !== socketId) {
 			if (signal.sdp) {
 				connections[fromId].setRemoteDescription(new RTCSessionDescription(signal.sdp)).then(() => {
@@ -327,14 +335,13 @@ class Video extends Component {
 	connectToSocketServer = () => {
 		socket = io.connect(server_url, { secure: true })
 
-		socket.on('signal', this.gotMessageFromServer)
-		socket.on('signal', this.gotWishesFromServer)
-		socket.on('connect', () => {
+		socket.on('signal', this.callboth)
+		// socket.on('signal', this.gotWishesFromServer)
+		socket.on('connect', () => {			
 			socket.emit('join-call', window.location.href)
 			socketId = socket.id
-
 			socket.on('chat-message', this.addMessage)
-			socket.on('wish', this.addWish)
+			socket.on('wishes', this.addWish)
 			socket.on('user-left', (id) => {
 				let video = document.querySelector(`[data-socket="${id}"]`)
 				if (video !== null) {
@@ -353,6 +360,7 @@ class Video extends Component {
 					connections[socketListId].onicecandidate = function (event) {
 						if (event.candidate != null) {
 							socket.emit('signal', socketListId, JSON.stringify({ 'ice': event.candidate }))
+							// socket.emit('signal1', socketListId, JSON.stringify({ 'ice': event.candidate }))
 						}
 					}
 
@@ -406,6 +414,7 @@ class Video extends Component {
 							connections[id2].setLocalDescription(description)
 								.then(() => {
 									socket.emit('signal', id2, JSON.stringify({ 'sdp': connections[id2].localDescription }))
+									//socket.emit('signal1', id2, JSON.stringify({ 'sdp': connections[id2].localDescription }))
 								})
 								.catch(e => console.log(e))
 						})
@@ -451,21 +460,23 @@ class Video extends Component {
 	handleMessage = (e) => this.setState({ message: e.target.value })
 	handleURL = (e) => this.setState({ wishlist: e.target.value })
 
-	addMessage = (data, sender, socketIdSender) => {
-		this.setState(prevState => ({
-			messages: [...prevState.messages, { "sender": sender, "data": data }],
-		}))
-		if (socketIdSender !== socketId) {
-			this.setState({ newmessages: this.state.newmessages + 1 })
-		}
-	}
-
 	addWish = (data, sender, socketIdSender) => {
+		console.log('inside addWish')
 		this.setState(prevState => ({
 			wishes: [...prevState.wishes, { "sender": sender, "data": data }],
 		}))
 		if (socketIdSender !== socketId) {
 			this.setState({ newwishes: this.state.newwishes + 1 })
+		}
+	}
+
+	addMessage = (data, sender, socketIdSender) => {
+		console.log('inside addMessage')
+		this.setState(prevState => ({
+			messages: [...prevState.messages, { "sender": sender, "data": data }],
+		}))
+		if (socketIdSender !== socketId) {
+			this.setState({ newmessages: this.state.newmessages + 1 })
 		}
 	}
 
@@ -476,9 +487,12 @@ class Video extends Component {
 		this.setState({ message: "", sender: this.state.username })
 	}
 
-	sendWish= () => {
+	sendWish = () => {
+		console.log(this.state.wishlist, this.state.username)
 		socket.emit('wishes', this.state.wishlist, this.state.username)
 		this.setState({ wishlist: "", sender: this.state.username })
+		console.log(this.state.wishes)
+		console.log(this.state.messages)
 	}
 
 	copyUrl = () => {
@@ -515,6 +529,8 @@ class Video extends Component {
 		// return matchChrome !== null || matchFirefox !== null
 		return matchChrome !== null
 	}
+
+	
 
 	render() {
 		if(this.isChrome() === false){
@@ -570,8 +586,8 @@ class Video extends Component {
 							
 							<Badge badgeContent={this.state.newwishes} max={999} color="secondary" onClick={this.openWish}>
 								<IconButton style={{ color: "#424242" }} onClick={this.openWish}>
-								<LocalMallIcon />
-							</IconButton>
+									<LocalMallIcon />
+								</IconButton>
 							</Badge>
 
 						</div>
@@ -598,19 +614,15 @@ class Video extends Component {
 							<Modal.Header closeButton>
 								<Modal.Title>Wishlist</Modal.Title>
 							</Modal.Header>
-							<Modal.Body style={{ overflow: "auto", overflowY: "auto", height: "400px", textAlign: "left" }} >
-							{this.state.wishes.length > 0 ? this.state.wishes.map((item, index) => (
-										<div key={index} style={{textAlign: "left"}}>
-											<p style={{ wordBreak: "break-all" }}><b>{item.sender}</b>: {item.data}</p>
-										</div>									
-								// 	<div key={index} className="list-group " style={{marginTop: '30px', alignItems: 'center'}}>
-								// 	<a href="#" className="list-group-item list-group-item-action list-group-item-danger" >{item.data}<img src="https://www.thenewsminute.com/sites/default/files/styles/slideshow_image_size/public/Myntra_Logo_1200x800.jpg?itok=QuRN2mnR"style={{maxWidth: '50px', maxHeight: '50px', marginLeft: '60%'}} /></a>
-								//   </div>
-								)) : <p>No Items yet</p>}
-								
+							<Modal.Body style={{ overflow: "auto", overflowY: "auto", height: "400px", width:"100%", textAlign: "left" }} >
+								{this.state.wishes.length > 0 ? this.state.wishes.map((item, index) => (
+									<div key={index}  className="list-group " style={{marginTop: '30px', alignItems: 'center'}}>
+									<a href={item.data} target="_blank" className="list-group-item list-group-item-action list-group-item-danger" ><b>{item.sender}</b>: {item.data}<img src="https://www.thenewsminute.com/sites/default/files/styles/slideshow_image_size/public/Myntra_Logo_1200x800.jpg?itok=QuRN2mnR"style={{maxWidth: '50px', maxHeight: '50px', marginLeft: '20px'}} /></a>
+								  </div>
+								)) : <p>No Items yet</p>}								
 							</Modal.Body>
 							<Modal.Footer className="div-send-msg">
-								<Input placeholder="URL" value={this.state.wishlist} onChange={e => this.handleURL(e)} />
+								<Input type="url" placeholder="URL" style={{ width:"880px" }} value={this.state.wishlist} onChange={e => this.handleURL(e)} />
 								<Button variant="contained" color="primary" onClick={this.sendWish} style={{ background:"pink", color:"black"}}>Add</Button>
 							</Modal.Footer>
 						</Modal>

@@ -26,6 +26,7 @@ sanitizeString = (str) => {
 
 connections = {}
 messages = {}
+wishes = {}
 timeOnline = {}
 
 io.on('connection', (socket) => {
@@ -46,6 +47,13 @@ io.on('connection', (socket) => {
 			for(let a = 0; a < messages[path].length; ++a){
 				io.to(socket.id).emit("chat-message", messages[path][a]['data'], 
 					messages[path][a]['sender'], messages[path][a]['socket-id-sender'])
+			}
+		}
+
+		if(wishes[path] !== undefined){
+			for(let a = 0; a < wishes[path].length; ++a){
+				io.to(socket.id).emit("wishes", wishes[path][a]['data'], 
+					wishes[path][a]['sender'], wishes[path][a]['socket-id-sender'])
 			}
 		}
 
@@ -83,6 +91,37 @@ io.on('connection', (socket) => {
 			}
 		}
 	})
+
+
+	socket.on('wishes', (data, sender) => {
+		data = sanitizeString(data)
+		sender = sanitizeString(sender)
+
+		var key
+		var ok = false
+		for (const [k, v] of Object.entries(connections)) {
+			for(let a = 0; a < v.length; ++a){
+				if(v[a] === socket.id){
+					key = k
+					ok = true
+				}
+			}
+		}
+
+		if(ok === true){
+			if(wishes[key] === undefined){
+				wishes[key] = []
+			}
+			wishes[key].push({"sender": sender, "data": data, "socket-id-sender": socket.id})
+			console.log("wishes", key, ":", sender, data)
+
+			for(let a = 0; a < connections[key].length; ++a){
+				io.to(connections[key][a]).emit("wishes", data, sender, socket.id)
+			}
+		}
+	})
+
+	
 
 	socket.on('disconnect', () => {
 		var diffTime = Math.abs(timeOnline[socket.id] - new Date())
