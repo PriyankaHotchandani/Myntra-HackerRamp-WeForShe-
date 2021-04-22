@@ -47,9 +47,12 @@ https://drive.google.com/drive/folders/1T-GQfl3ogf-KyzS4cY9UPIjahOKtnJ9E?usp=sha
 
 * Screen sharing while shopping online​
 
+* Interactive Chat box during calls
+
+* Common Wishlist
+
 * Virtual Dressing Room​
 
-* Interactive Chat box during calls
 <br>
 
 ---
